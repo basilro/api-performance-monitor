@@ -7,29 +7,28 @@ import lombok.Value;
 import jakarta.validation.constraints.*;
 
 /**
- * CQRS Command: Record new API metric
- * Immutable command object with validation
+ * CQRS Command: 메트릭 기록
  */
 @Value
 @Builder
 public class RecordMetricCommand {
     
-    @NotBlank(message = "Endpoint must not be blank")
+    @NotBlank(message = "엔드포인트는 필수입니다")
     String endpoint;
     
-    @NotNull(message = "HTTP method must not be null")
+    @NotNull(message = "HTTP 메소드는 필수입니다")
     HttpMethod method;
     
-    @NotNull(message = "Status code must not be null")
-    @Min(value = 100, message = "Invalid HTTP status code")
-    @Max(value = 599, message = "Invalid HTTP status code")
+    @NotNull(message = "상태 코드는 필수입니다")
+    @Min(value = 100, message = "올바르지 않은 HTTP 상태 코드입니다")
+    @Max(value = 599, message = "올바르지 않은 HTTP 상태 코드입니다")
     Integer statusCode;
     
-    @NotNull(message = "Response time must not be null")
-    @Min(value = 0, message = "Response time cannot be negative")
+    @NotNull(message = "응답 시간은 필수입니다")
+    @Min(value = 0, message = "응답 시간은 음수일 수 없습니다")
     Long responseTimeMs;
     
-    @Min(value = 0, message = "Payload size cannot be negative")
+    @Min(value = 0, message = "페이로드 크기는 음수일 수 없습니다")
     Long payloadSizeBytes;
     
     String clientIp;

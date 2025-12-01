@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 /**
- * CQRS Query Handler: Handles metric statistics queries
- * Uses caching for performance optimization
+ * CQRS Query Handler: 메트릭 통계 조회 처리
+ * 성능 최적화를 위한 캐싱 적용
  */
 @Service
 @RequiredArgsConstructor
@@ -26,7 +26,6 @@ public class GetMetricStatisticsQueryHandler {
             )
             .collectList()
             .map(metrics -> {
-                // Calculate statistics from raw metrics
                 long total = metrics.size();
                 long successful = metrics.stream()
                     .filter(m -> m.isSuccessful())

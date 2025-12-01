@@ -15,8 +15,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 /**
- * REST Controller for API Metrics
- * Follows REST best practices and reactive programming patterns
+ * REST Controller: API 메트릭 관리
  */
 @RestController
 @RequestMapping("/api/v1/metrics")

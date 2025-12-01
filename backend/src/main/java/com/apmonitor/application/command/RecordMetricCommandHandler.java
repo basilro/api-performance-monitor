@@ -11,8 +11,8 @@ import java.time.Instant;
 import java.util.UUID;
 
 /**
- * CQRS Command Handler: Handles metric recording
- * Separates write operations from read operations for better scalability
+ * CQRS Command Handler: 메트릭 기록 처리
+ * 쓰기 작업과 읽기 작업 분리로 확장성 확보
  */
 @Slf4j
 @Service
@@ -22,7 +22,7 @@ public class RecordMetricCommandHandler {
     private final MetricRepository metricRepository;
     
     public Mono<UUID> handle(RecordMetricCommand command) {
-        log.debug("Recording metric for endpoint: {}", command.getEndpoint());
+        log.debug("메트릭 기록: {}", command.getEndpoint());
         
         ApiMetric metric = ApiMetric.builder()
             .id(UUID.randomUUID())
@@ -38,7 +38,7 @@ public class RecordMetricCommandHandler {
         return metricRepository.save(metric)
             .doOnSuccess(saved -> {
                 if (saved.isSlowResponse(1000)) {
-                    log.warn("Slow response detected: {} took {}ms", 
+                    log.warn("느린 응답 감지: {} - {}ms", 
                         saved.getEndpoint(), saved.getResponseTimeMs());
                 }
             })

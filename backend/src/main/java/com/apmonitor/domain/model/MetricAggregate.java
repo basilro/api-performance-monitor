@@ -6,8 +6,8 @@ import lombok.Value;
 import java.time.Instant;
 
 /**
- * Aggregate root for metric statistics
- * Represents computed analytics over a time window
+ * Aggregate Root: 메트릭 통계 집계
+ * 시간 윈도우 기반 분석 데이터
  */
 @Value
 @Builder
@@ -29,32 +29,20 @@ public class MetricAggregate {
     
     Long totalPayloadSize;
     
-    /**
-     * Calculate success rate percentage
-     */
     public double getSuccessRate() {
         if (totalRequests == 0) return 0.0;
         return (successfulRequests * 100.0) / totalRequests;
     }
     
-    /**
-     * Calculate error rate percentage
-     */
     public double getErrorRate() {
         return 100.0 - getSuccessRate();
     }
     
-    /**
-     * Determine if this endpoint has reliability issues
-     */
     public boolean hasReliabilityIssue() {
-        return getErrorRate() > 5.0; // More than 5% error rate
+        return getErrorRate() > 5.0;
     }
     
-    /**
-     * Determine if this endpoint has performance issues
-     */
     public boolean hasPerformanceIssue() {
-        return averageResponseTime > 1000; // Average > 1 second
+        return averageResponseTime > 1000;
     }
 }

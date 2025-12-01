@@ -7,7 +7,7 @@ import lombok.Value;
 import java.time.Instant;
 
 /**
- * CQRS Query: Get metric statistics for an endpoint
+ * CQRS Query: 메트릭 통계 조회
  */
 @Value
 @Builder

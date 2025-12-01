@@ -9,8 +9,8 @@ import java.time.Instant;
 import java.util.UUID;
 
 /**
- * Domain repository interface - part of Domain layer
- * Implementation details are in Infrastructure layer (Hexagonal Architecture)
+ * 도메인 레포지토리 인터페이스
+ * 헥사고날 아키텍처: 구현체는 Infrastructure 레이어에 위치
  */
 public interface MetricRepository {
     

@@ -7,9 +7,8 @@ import java.time.Instant;
 import java.util.UUID;
 
 /**
- * Domain Entity: API Metric
- * Immutable value object representing a single API call measurement
- * Following DDD principles - rich domain model with business logic
+ * Domain Entity: API 메트릭
+ * DDD 원칙에 따른 불변 도메인 객체
  */
 @Value
 @Builder
@@ -23,25 +22,14 @@ public class ApiMetric {
     Instant timestamp;
     String clientIp;
     
-    /**
-     * Business logic: Determine if this API call has performance issues
-     * @param thresholdMs Performance threshold in milliseconds
-     * @return true if response time exceeds threshold
-     */
     public boolean isSlowResponse(long thresholdMs) {
         return responseTimeMs > thresholdMs;
     }
     
-    /**
-     * Business logic: Check if request was successful
-     */
     public boolean isSuccessful() {
         return statusCode >= 200 && statusCode < 300;
     }
     
-    /**
-     * Calculate performance grade based on response time
-     */
     public PerformanceGrade calculateGrade() {
         if (responseTimeMs < 100) return PerformanceGrade.EXCELLENT;
         if (responseTimeMs < 500) return PerformanceGrade.GOOD;
