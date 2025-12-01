@@ -1,8 +1,8 @@
 import { useState, useCallback, useMemo } from 'react';
 
 /**
- * Custom hook for virtual scrolling optimization
- * Reduces DOM nodes for large lists, improving rendering performance
+ * 가상 스크롤링 최적화 훅
+ * 대용량 리스트의 DOM 노드 수를 줄여 렌더링 성능 향상
  */
 export const useVirtualization = <T>(
   items: T[],
@@ -17,7 +17,6 @@ export const useVirtualization = <T>(
     Math.ceil((scrollTop + containerHeight) / itemHeight)
   );
 
-  // Add buffer for smooth scrolling
   const BUFFER_SIZE = 5;
   const startIndex = Math.max(0, visibleStartIndex - BUFFER_SIZE);
   const endIndex = Math.min(items.length - 1, visibleEndIndex + BUFFER_SIZE);

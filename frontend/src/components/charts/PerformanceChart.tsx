@@ -17,46 +17,29 @@ interface PerformanceChartProps {
 }
 
 /**
- * Performance chart with optimizations:
- * - Memoized data transformation
- * - Responsive container
- * - Efficient re-rendering
+ * 성능 차트 컴포넌트
+ * - 메모이제이션으로 데이터 변환 최적화
+ * - 반응형 컨테이너
  */
 const PerformanceChart: React.FC<PerformanceChartProps> = ({ data }) => {
-  // Transform data for chart - memoized to prevent recalculation
   const chartData = useMemo(() => {
     return [
-      {
-        name: 'Average',
-        value: data.averageResponseTime,
-      },
-      {
-        name: 'Min',
-        value: data.minResponseTime,
-      },
-      {
-        name: 'Max',
-        value: data.maxResponseTime,
-      },
-      {
-        name: 'P95',
-        value: data.p95ResponseTime,
-      },
-      {
-        name: 'P99',
-        value: data.p99ResponseTime,
-      },
+      { name: '평균', value: data.averageResponseTime },
+      { name: '최소', value: data.minResponseTime },
+      { name: '최대', value: data.maxResponseTime },
+      { name: 'P95', value: data.p95ResponseTime },
+      { name: 'P99', value: data.p99ResponseTime },
     ];
   }, [data]);
 
   return (
     <div className="chart-container">
-      <h2>Response Time Distribution</h2>
+      <h2>응답시간 분포</h2>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis label={{ value: 'Response Time (ms)', angle: -90, position: 'insideLeft' }} />
+          <YAxis label={{ value: '응답시간 (ms)', angle: -90, position: 'insideLeft' }} />
           <Tooltip />
           <Legend />
           <Line

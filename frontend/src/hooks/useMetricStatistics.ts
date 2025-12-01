@@ -3,11 +3,9 @@ import { metricApi } from '@/api/metricApi';
 import { MetricAggregate } from '@/types/metric';
 
 /**
- * Custom hook for fetching metric statistics
- * Demonstrates:
- * - React Query for server state management
- * - Automatic caching and background refetching
- * - Type-safe API calls
+ * 메트릭 통계 조회 훅
+ * - React Query로 서버 상태 관리
+ * - 자동 캐싱 및 백그라운드 갱신
  */
 export const useMetricStatistics = (
   endpoint: string,
@@ -18,18 +16,15 @@ export const useMetricStatistics = (
   return useQuery<MetricAggregate>({
     queryKey: ['metricStatistics', endpoint, startTime, endTime],
     queryFn: () => metricApi.getStatistics(endpoint, startTime, endTime),
-    // Cache for 5 minutes
     staleTime: 5 * 60 * 1000,
-    // Retry failed requests
     retry: 2,
-    // Enable background refetching
     refetchOnWindowFocus: true,
     ...options,
   });
 };
 
 /**
- * Custom hook with polling for real-time updates
+ * 실시간 폴링 메트릭 통계 훅
  */
 export const useRealtimeMetricStatistics = (
   endpoint: string,

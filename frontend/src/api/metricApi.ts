@@ -2,9 +2,6 @@ import apiClient from './client';
 import { ApiMetric, MetricAggregate } from '@/types/metric';
 
 export const metricApi = {
-  /**
-   * Fetch metric statistics for a specific endpoint
-   */
   getStatistics: async (
     endpoint: string,
     startTime?: number,
@@ -20,9 +17,6 @@ export const metricApi = {
     return response.data;
   },
 
-  /**
-   * Record a new metric
-   */
   recordMetric: async (metric: Omit<ApiMetric, 'id' | 'timestamp'>): Promise<string> => {
     const response = await apiClient.post<string>('/metrics', metric);
     return response.data;

@@ -13,11 +13,10 @@ interface MetricRow {
 }
 
 /**
- * Virtual scrolling table for large datasets
- * Uses react-window for efficient rendering of thousands of rows
+ * 가상 스크롤링 테이블 컴포넌트
+ * react-window로 대용량 데이터 효율적 렌더링
  */
 const MetricTable: React.FC<MetricTableProps> = ({ endpoint }) => {
-  // In real app, this would come from API with pagination
   const mockData: MetricRow[] = Array.from({ length: 10000 }, (_, i) => ({
     timestamp: new Date(Date.now() - i * 60000).toISOString(),
     statusCode: Math.random() > 0.1 ? 200 : 500,
@@ -41,12 +40,12 @@ const MetricTable: React.FC<MetricTableProps> = ({ endpoint }) => {
 
   return (
     <div className="metric-table">
-      <h2>Request History</h2>
+      <h2>요청 이력</h2>
       <div className="table-header">
-        <div className="table-cell">Timestamp</div>
-        <div className="table-cell">Method</div>
-        <div className="table-cell">Status</div>
-        <div className="table-cell">Response Time</div>
+        <div className="table-cell">시간</div>
+        <div className="table-cell">메소드</div>
+        <div className="table-cell">상태</div>
+        <div className="table-cell">응답시간</div>
       </div>
       <List
         height={600}

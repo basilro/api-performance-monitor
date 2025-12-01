@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 /**
- * Axios client with performance optimizations
- * - Request/response interceptors for monitoring
- * - Timeout configuration
- * - Error handling
+ * Axios 클라이언트 설정
+ * - 요청/응답 인터셉터로 성능 모니터링
+ * - 타임아웃 설정
+ * - 에러 핸들링
  */
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
@@ -14,7 +14,6 @@ const apiClient = axios.create({
   },
 });
 
-// Request interceptor for adding authentication tokens, logging, etc.
 apiClient.interceptors.request.use(
   (config) => {
     const startTime = Date.now();
@@ -26,13 +25,11 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response interceptor for logging performance metrics
 apiClient.interceptors.response.use(
   (response) => {
     const endTime = Date.now();
     const duration = endTime - (response.config.metadata?.startTime || endTime);
     
-    // Log API performance in development
     if (import.meta.env.DEV) {
       console.log(`[API] ${response.config.method?.toUpperCase()} ${response.config.url} - ${duration}ms`);
     }

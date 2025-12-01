@@ -2,7 +2,6 @@ import React, { useMemo, lazy, Suspense } from 'react';
 import { useMetricStatistics } from '@/hooks/useMetricStatistics';
 import { MetricAggregate } from '@/types/metric';
 
-// Code splitting: Lazy load heavy chart components
 const PerformanceChart = lazy(() => import('./charts/PerformanceChart'));
 const MetricTable = lazy(() => import('./MetricTable'));
 
@@ -11,15 +10,13 @@ interface MetricDashboardProps {
 }
 
 /**
- * Main dashboard component with performance optimizations:
- * - Memoization to prevent unnecessary re-renders
- * - Code splitting for charts
- * - Conditional rendering
+ * 메인 대시보드 컴포넌트
+ * - 메모이제이션으로 불필요한 리렌더링 방지
+ * - 코드 스플리팅으로 차트 지연 로딩
  */
 const MetricDashboard: React.FC<MetricDashboardProps> = ({ endpoint }) => {
   const { data, isLoading, error } = useMetricStatistics(endpoint);
 
-  // Memoize computed values to avoid recalculation
   const performanceMetrics = useMemo(() => {
     if (!data) return null;
 
@@ -46,27 +43,27 @@ const MetricDashboard: React.FC<MetricDashboardProps> = ({ endpoint }) => {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>API Performance Monitor</h1>
+        <h1>API 성능 모니터</h1>
         <p className="endpoint-title">{endpoint}</p>
       </header>
 
       <div className="metrics-grid">
         <MetricCard
-          title="Success Rate"
+          title="성공률"
           value={`${performanceMetrics.successRate}%`}
           trend={parseFloat(performanceMetrics.successRate) >= 95 ? 'up' : 'down'}
         />
         <MetricCard
-          title="Avg Response Time"
+          title="평균 응답시간"
           value={`${performanceMetrics.avgResponseTime}ms`}
           trend={parseFloat(performanceMetrics.avgResponseTime) < 500 ? 'up' : 'down'}
         />
         <MetricCard
-          title="Total Requests"
+          title="전체 요청"
           value={performanceMetrics.totalRequests}
         />
         <MetricCard
-          title="P95 Response Time"
+          title="P95 응답시간"
           value={`${performanceMetrics.p95}ms`}
         />
       </div>
@@ -82,10 +79,8 @@ const MetricDashboard: React.FC<MetricDashboardProps> = ({ endpoint }) => {
   );
 };
 
-// Memoize component to prevent unnecessary re-renders
 export default React.memo(MetricDashboard);
 
-// Lightweight UI components
 const MetricCard: React.FC<{
   title: string;
   value: string;
@@ -100,10 +95,10 @@ const MetricCard: React.FC<{
   </div>
 ));
 
-const LoadingSpinner = () => <div className="spinner">Loading...</div>;
+const LoadingSpinner = () => <div className="spinner">로딩중...</div>;
 const ErrorDisplay = ({ error }: { error: Error }) => (
-  <div className="error">Error: {error.message}</div>
+  <div className="error">에러: {error.message}</div>
 );
-const EmptyState = () => <div className="empty">No data available</div>;
+const EmptyState = () => <div className="empty">데이터가 없습니다</div>;
 const ChartSkeleton = () => <div className="skeleton chart-skeleton" />;
 const TableSkeleton = () => <div className="skeleton table-skeleton" />;
